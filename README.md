@@ -108,13 +108,13 @@ all different scenarios and make the tests pass**
 
 ### ItemForm
 
-There is a new component called `ItemForm` that will allow us to add new items
-to our shopping list. _When the form is submitted_, a new item should be created
-and added to our list of items.
+There is a new component called `BookForm` that will allow us to add new items
+to our list of books. _When the form is submitted_, a new book should be created
+and added to our list of books.
 
 - Make all the input fields for this form controlled inputs, so that you can
   access all the form data via state. When setting the initial state for the
-  `<select>` tag, use an initial value of "Produce" (since that's the first
+  `<select>` tag, use an initial value of "Business" (since that's the first
   option in the list).
 
 - Handle the form's _submit_ event, and use the data that you have saved in
@@ -123,13 +123,15 @@ and added to our list of items.
   ```js
   const newItem = {
     id: uuid(), // the `uuid` library can be used to generate a unique id
-    name: itemName,
-    category: itemCategory,
+    title: titleInput,
+    author: authorInput,
+    image: imageInput,
+    genre: genreInput,
   };
   ```
 
-- Add the new item to the list by updating state. To get the test passing,
-  you'll need to use a prop called `onItemFormSubmit` as a callback.
+- Add the new book to the list by updating state. To get the test passing,
+  you'll need to use a prop called `onFormSubmit` as a callback.
 
   **NOTE**: to add a new element to an array in state, it's a good idea to use
   the spread operator:

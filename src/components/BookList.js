@@ -27,6 +27,7 @@ const BookList = ({ books, handleBookFormSubmit }) => {
     <div className="library">
       <BookForm onFormSubmit={handleBookFormSubmit} />
       <Filter
+          // TODO: Pass selectedGenre and textMatch as props
           onGenreChange={handleChangeGenre}
           onTextMatchChange={handleChangeTextMatch}
       />

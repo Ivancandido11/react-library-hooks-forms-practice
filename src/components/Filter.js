@@ -1,9 +1,8 @@
 import React from "react"
 
-const Filter = ({ onGenreChange, onTextMatchChange }) => {
-  // TODO: use onGenreChange and onTextMatchChange to
-  // control the <input /> and <select /> elements by adding
-  // them as onChange callback functions.
+const Filter = ({ onGenreChange, onTextMatchChange, selectedGenre, textMatch }) => {
+  // TODO: connect selectedGenre and textMatch to the inputs
+  // TODO: implement onGenreChange and onTextMatchChange callbacks
 
   return (
     <div className="Filter">
