@@ -31,30 +31,80 @@ passing data and callback functions as props, and working with events.
 
 ### Filter
 
-In the filter component, there is a new input field for searching our list.
-_When the user types in this field_, the list of items should be filtered so
-that only items whose name matches the text are included.
+In the filter component, there are two input fields.
+1. An `input` field for searching our list of books. _When the user types in this
+field_, the list of books should be filtered so that only books whose title OR
+author match the text are included.
+2. A `select` field that will filter our list of books by genre.
 
-- Determine where you need to add state for this feature. What components need
-  to know about the search text?
+In the `<BookList />` component, the `selectedGenre` state and `handleChangeGenre()`
+callback function will manage the search input. Similarly, the `textMatch` state and
+`handleChangeTextMatch()` callback function will manage the `select` input field.
 
-- Once you've determined which component should hold the state for this feature,
-  set up your initial state, and connect that state to the input field.
+- Once you've taken a look at how these two components work together, use the
+  props to connect the state to the input fields (in the `<Filter />` component).
   Remember, we're trying to make this input a _controlled_ input &mdash; so the
   input's value should always be in sync with state.
 
 - After you've connected the input to state, you'll also need to find a way to
-  _set_ state when the input _changes_. To get the test passing, you'll need to
-  use a prop called `onSearchChange` as a callback.
+  _set_ state when the input _changes_. You'll need to finish writing the
+  `onGenreChange` and `onTextMatchChange` callback functions.
 
 - Finally, after making those changes, you'll need to use that state value to
   determine which items are being displayed on the page, similar to how the
   category dropdown works.
 
-**Note**: you may be asking yourself, why are we making this input controlled
-when the `<select>` element is not a controlled input? Well, the `<select>`
-input should probably be controlled as well! The tests don't require it, but
-feel free to update the `<select>` element to be a controlled element.
+HINT: You can use two different filters:
+```js
+// const selectedGenre = "Vampires"
+// const textMatch = "Bob"
+const data = [
+  { id: 1, title: "Brave Little Toaster", author: "Tom A.", genre: "Nonfiction" },
+  { id: 2, title: "Twilight", author: "Twilight's Author", genre: "Vampires" },
+  { id: 3, title: "Bob's (Blood) Burgers", author: "Tim B.", genre: "Vampires" },
+]
+
+const filteringByGenre = data.filter(book => book.genre === selectedGenre)
+/*
+  returns [
+  { id: 2, title: "Twilight", author: "Twilight's Author", genre: "Vampires" },
+  { id: 3, title: "Bob's (Blood) Burgers", author: "Tim B.", genre: "Vampires" },
+]
+*/
+
+const filterByGenreAndTextMatch = filteringByGenre.filter(book => {
+  return book.title.includes(textMatch) || book.genre.includes(textMatch)
+})
+/*
+  returns [
+  { id: 3, title: "Bob's (Blood) Burgers", author: "Tim B.", genre: "Vampires" },
+]
+
+```
+
+OR you can chain multiple filters on the same array.
+```js
+// const selectedGenre = "Vampires"
+// const textMatch = "Bob"
+const data = [
+  { id: 1, title: "Brave Little Toaster", author: "Tom A.", genre: "Nonfiction" },
+  { id: 2, title: "Twilight", author: "Twilight's Author", genre: "Vampires" },
+  { id: 3, title: "Bob's (Blood) Burgers", author: "Tim B.", genre: "Vampires" },
+]
+
+const filteringByGenre = data
+  .filter(book => book.genre === selectedGenre)
+  .filter(book => book.title.includes(textMatch) || book.genre.includes(textMatch))
+
+/*
+  returns [
+  { id: 3, title: "Bob's (Blood) Burgers", author: "Tim B.", genre: "Vampires" },
+]
+
+```
+
+**This is not actually the answer...you'll need to do a bit more work to check for
+all different scenarios and make the tests pass**
 
 ### ItemForm
 
