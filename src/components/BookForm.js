@@ -5,7 +5,7 @@ const BookForm = ({ onFormSubmit }) => {
   /*
     TODO: Make this form into a controlled component.
     This can be done by using useState to manage the values for:
-      - name
+      - title
       - author
       - image
       - genre
@@ -15,8 +15,8 @@ const BookForm = ({ onFormSubmit }) => {
     <form className="NewItem">
       <div style={{ marginBottom: "8px" }}>
         <label>
-          Name:
-          <input type="text" name="name" />
+          Title:
+          <input type="text" name="title" />
         </label>
         <label>
           Author:
