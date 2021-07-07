@@ -2,37 +2,72 @@ import React, { useState } from "react"
 import { v4 as uuid } from "uuid"
 
 const BookForm = ({ onFormSubmit }) => {
-  /*
-    TODO: Make this form into a controlled component.
-    This can be done by using useState to manage the values for:
-      - title
-      - author
-      - image
-      - genre
-    Then onSubmit of the form, call onFormSubmit with the current form values.
-  */
+  const [titleInput, setTitleInput] = useState("")
+  const [authorInput, setAuthorInput] = useState("")
+  const [imageInput, setImageInput] = useState("")
+  const [genreInput, setGenreInput] = useState("Business")
+
+  const handleTitleChange = (event) => setTitleInput(event.target.value)
+  const handleAuthorChange = (event) => setAuthorInput(event.target.value)
+  const handleImageChange = (event) => setImageInput(event.target.value)
+  const handleGenreChange = (event) => setGenreInput(event.target.value)
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const newBook = {
+      id: uuid(),
+      title: titleInput,
+      author: authorInput,
+      image: imageInput,
+      genre: genreInput
+    }
+
+    onFormSubmit(newBook)
+  }
+
   return (
-    <form className="NewItem">
+    <form
+        className="NewItem"
+        onSubmit={handleSubmit}
+    >
       <div style={{ marginBottom: "8px" }}>
         <label>
           Title:
-          <input type="text" name="title" />
+          <input
+              name="title"
+              onChange={handleTitleChange}
+              type="text"
+              value={titleInput}
+          />
         </label>
         <label>
           Author:
-          <input type="text" name="author" />
+          <input
+              name="author"
+              onChange={handleAuthorChange}
+              type="text"
+              value={authorInput}
+          />
         </label>
       </div>
 
       <div style={{ marginBottom: "8px" }}>
         <label>
           Image Link:
-          <input type="text" name="image" />
+          <input
+              name="image"
+              onChange={handleImageChange}
+              type="text"
+              value={imageInput}
+          />
         </label>
 
         <label>
           Genre:
-          <select name="genre">
+          <select
+              name="genre"
+              onChange={handleGenreChange}
+          >
             <option value="Business">Business</option>
             <option value="Fiction">Fiction</option>
             <option value="History">History</option>
@@ -45,4 +80,5 @@ const BookForm = ({ onFormSubmit }) => {
     </form>
   )
 }
+
 export default BookForm

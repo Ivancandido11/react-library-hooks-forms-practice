@@ -12,5 +12,4 @@ const Book = ({ author, genre, image, title }) => (
   </li>
 )
 
-
 export default Book
