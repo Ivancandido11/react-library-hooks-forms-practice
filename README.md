@@ -9,6 +9,11 @@
 In this lab, you'll write and use controlled components, and write
 validation for form components.
 
+## Live Mockup
+
+https://user-images.githubusercontent.com/25964192/124780036-4977f080-df10-11eb-94c6-0855905cf575.mov
+
+
 ## Controlled Components
 
 Now that we know how to handle form elements in React and how to set up
