@@ -9,6 +9,11 @@
 In this lab, you'll write and use controlled components, and write
 validation for form components.
 
+## Live Mockup
+
+https://user-images.githubusercontent.com/25964192/124780036-4977f080-df10-11eb-94c6-0855905cf575.mov
+
+
 ## Controlled Components
 
 Now that we know how to handle form elements in React and how to set up
@@ -26,40 +31,90 @@ passing data and callback functions as props, and working with events.
 
 ### Filter
 
-In the filter component, there is a new input field for searching our list.
-_When the user types in this field_, the list of items should be filtered so
-that only items whose name matches the text are included.
+In the filter component, there are two input fields.
+1. An `input` field for searching our list of books. _When the user types in this
+field_, the list of books should be filtered so that only books whose title OR
+author match the text are included.
+2. A `select` field that will filter our list of books by genre.
 
-- Determine where you need to add state for this feature. What components need
-  to know about the search text?
+In the `<BookList />` component, the `selectedGenre` state and `handleChangeGenre()`
+callback function will manage the search input. Similarly, the `textMatch` state and
+`handleChangeTextMatch()` callback function will manage the `select` input field.
 
-- Once you've determined which component should hold the state for this feature,
-  set up your initial state, and connect that state to the input field.
+- Once you've taken a look at how these two components work together, use the
+  props to connect the state to the input fields (in the `<Filter />` component).
   Remember, we're trying to make this input a _controlled_ input &mdash; so the
   input's value should always be in sync with state.
 
 - After you've connected the input to state, you'll also need to find a way to
-  _set_ state when the input _changes_. To get the test passing, you'll need to
-  use a prop called `onSearchChange` as a callback.
+  _set_ state when the input _changes_. You'll need to finish writing the
+  `onGenreChange` and `onTextMatchChange` callback functions.
 
 - Finally, after making those changes, you'll need to use that state value to
   determine which items are being displayed on the page, similar to how the
   category dropdown works.
 
-**Note**: you may be asking yourself, why are we making this input controlled
-when the `<select>` element is not a controlled input? Well, the `<select>`
-input should probably be controlled as well! The tests don't require it, but
-feel free to update the `<select>` element to be a controlled element.
+HINT: You can use two different filters:
+```js
+// const selectedGenre = "Vampires"
+// const textMatch = "Bob"
+const data = [
+  { id: 1, title: "Brave Little Toaster", author: "Tom A.", genre: "Nonfiction" },
+  { id: 2, title: "Twilight", author: "Twilight's Author", genre: "Vampires" },
+  { id: 3, title: "Bob's (Blood) Burgers", author: "Tim B.", genre: "Vampires" },
+]
+
+const filteringByGenre = data.filter(book => book.genre === selectedGenre)
+/*
+  returns [
+  { id: 2, title: "Twilight", author: "Twilight's Author", genre: "Vampires" },
+  { id: 3, title: "Bob's (Blood) Burgers", author: "Tim B.", genre: "Vampires" },
+]
+*/
+
+const filterByGenreAndTextMatch = filteringByGenre.filter(book => {
+  return book.title.includes(textMatch) || book.genre.includes(textMatch)
+})
+/*
+  returns [
+  { id: 3, title: "Bob's (Blood) Burgers", author: "Tim B.", genre: "Vampires" },
+]
+
+```
+
+OR you can chain multiple filters on the same array.
+```js
+// const selectedGenre = "Vampires"
+// const textMatch = "Bob"
+const data = [
+  { id: 1, title: "Brave Little Toaster", author: "Tom A.", genre: "Nonfiction" },
+  { id: 2, title: "Twilight", author: "Twilight's Author", genre: "Vampires" },
+  { id: 3, title: "Bob's (Blood) Burgers", author: "Tim B.", genre: "Vampires" },
+]
+
+const filteringByGenre = data
+  .filter(book => book.genre === selectedGenre)
+  .filter(book => book.title.includes(textMatch) || book.genre.includes(textMatch))
+
+/*
+  returns [
+  { id: 3, title: "Bob's (Blood) Burgers", author: "Tim B.", genre: "Vampires" },
+]
+
+```
+
+**This is not actually the answer...you'll need to do a bit more work to check for
+all different scenarios and make the tests pass**
 
 ### ItemForm
 
-There is a new component called `ItemForm` that will allow us to add new items
-to our shopping list. _When the form is submitted_, a new item should be created
-and added to our list of items.
+There is a new component called `BookForm` that will allow us to add new items
+to our list of books. _When the form is submitted_, a new book should be created
+and added to our list of books.
 
 - Make all the input fields for this form controlled inputs, so that you can
   access all the form data via state. When setting the initial state for the
-  `<select>` tag, use an initial value of "Produce" (since that's the first
+  `<select>` tag, use an initial value of "Business" (since that's the first
   option in the list).
 
 - Handle the form's _submit_ event, and use the data that you have saved in
@@ -68,13 +123,15 @@ and added to our list of items.
   ```js
   const newItem = {
     id: uuid(), // the `uuid` library can be used to generate a unique id
-    name: itemName,
-    category: itemCategory,
+    title: titleInput,
+    author: authorInput,
+    image: imageInput,
+    genre: genreInput,
   };
   ```
 
-- Add the new item to the list by updating state. To get the test passing,
-  you'll need to use a prop called `onItemFormSubmit` as a callback.
+- Add the new book to the list by updating state. To get the test passing,
+  you'll need to use a prop called `onFormSubmit` as a callback.
 
   **NOTE**: to add a new element to an array in state, it's a good idea to use
   the spread operator:
