@@ -1,18 +1,26 @@
 import React, { useState } from "react"
 
-import bookData from "../data/books"
+import books from "../data/books"
 
 import BookList from "./BookList"
 
 const App = () => {
-  const [books, setBooks] = useState(bookData)
+  const [bookData, setBookData] = useState(books)
+
+  const handleBookFormSubmit = (newBook) => {
+    // update the bookData state by using your setter
+    // method to combine the current array with the new book
+  }
 
   return (
     <div className="App">
       <header>
-        <h2>Shopster</h2>
+        <h2>Bookster</h2>
       </header>
-      <BookList books={books} />
+      {/*
+          Render <BookList /> and pass the bookData and
+          handleBookFormSubmit event handler as props
+      */}
     </div>
   )
 }

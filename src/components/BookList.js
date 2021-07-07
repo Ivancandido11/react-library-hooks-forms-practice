@@ -4,7 +4,7 @@ import BookForm from "./BookForm"
 import Filter from "./Filter"
 import Book from "./Book"
 
-const BookList = ({ books }) => {
+const BookList = ({ books, handleBookFormSubmit }) => {
   const [selectedGenre, setSelectedGenre] = useState("All")
   const [textMatch, setTextMatch] = useState("")
 
@@ -25,8 +25,11 @@ const BookList = ({ books }) => {
 
   return (
     <div className="library">
-      <BookForm />
-      <Filter onGenreChange={handleChangeGenre} />
+      <BookForm onFormSubmit={handleBookFormSubmit} />
+      <Filter
+          onGenreChange={handleChangeGenre}
+          onTextMatchChange={handleChangeTextMatch}
+      />
       <ul className="Items">
         {/* iterate over booksToDisplay, and render a <Book /> component for each book */}
       </ul>

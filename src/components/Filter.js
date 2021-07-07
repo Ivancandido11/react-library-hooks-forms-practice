@@ -1,6 +1,9 @@
 import React from "react"
 
-const Filter = ({ onGenreChange }) => {
+const Filter = ({ onGenreChange, onTextMatchChange }) => {
+  // use onGenreChange and onTextMatchChange to
+  // control the <input /> and <select /> elements
+
   return (
     <div className="Filter">
       <input
@@ -8,10 +11,7 @@ const Filter = ({ onGenreChange }) => {
           placeholder="Search by title or author..."
           type="text"
       />
-      <select
-          name="filter"
-          onChange={onGenreChange}
-      >
+      <select name="filter">
         <option value="All">Filter by genre</option>
         <option value="Business">Business</option>
         <option value="Fiction">Fiction</option>
