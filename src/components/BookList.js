@@ -9,15 +9,15 @@ const BookList = ({ books, handleBookFormSubmit }) => {
   const [textMatch, setTextMatch] = useState("")
 
   const handleChangeGenre = (event) => {
-    // set the selected genre here
+    // TODO: Set the selected genre state here
   }
 
   const handleChangeTextMatch = (event) => {
-    // set the text match here.
+    // TODO: Set the text match state here.
   }
 
   /*
-    booksToDisplay should be the result of books filtered by:
+    TODO: booksToDisplay should be the result of books filtered by:
       1. genre (selectedGenre)
       2. title/author (check if textMatch matches the book's title OR the book's author)
   */
@@ -31,7 +31,10 @@ const BookList = ({ books, handleBookFormSubmit }) => {
           onTextMatchChange={handleChangeTextMatch}
       />
       <ul className="Items">
-        {/* iterate over booksToDisplay, and render a <Book /> component for each book */}
+        {/*
+          TODO: iterate over booksToDisplay, and render a <Book /> component for each book.
+          CHeck out the Book.js file to see what props it takes
+        */}
       </ul>
     </div>
   )

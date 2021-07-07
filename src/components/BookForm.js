@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid"
 
 const BookForm = ({ onFormSubmit }) => {
   /*
-    Make this form into a controlled component.
+    TODO: Make this form into a controlled component.
     This can be done by using useState to manage the values for:
       - name
       - author
