@@ -1,17 +1,25 @@
 import React from "react"
 
 const Filter = ({ onGenreChange, onTextMatchChange, selectedGenre, textMatch }) => {
-  // TODO: connect selectedGenre and textMatch to the inputs
-  // TODO: implement onGenreChange and onTextMatchChange callbacks
+  const handleInputChange = (e) => {
+    const userText = e.target.value
+    onTextMatchChange(userText)
+  }
+  const handleSelectChange = (e) => {
+    const genre = e.target.value
+    onGenreChange(genre)
+  }
 
   return (
     <div className="Filter">
       <input
+          onChange={handleInputChange}
           name="search"
           placeholder="Search by title or author..."
           type="text"
+          value={textMatch}
       />
-      <select name="filter">
+      <select onChange={handleSelectChange} name="filter" value={selectedGenre}>
         <option value="All">Filter by genre</option>
         <option value="Business">Business</option>
         <option value="Fiction">Fiction</option>

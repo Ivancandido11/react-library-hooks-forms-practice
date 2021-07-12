@@ -2,37 +2,79 @@ import React, { useState } from "react"
 import { v4 as uuid } from "uuid"
 
 const BookForm = ({ onFormSubmit }) => {
-  /*
-    TODO: Make this form into a controlled component.
-    This can be done by using useState to manage the values for:
-      - title
-      - author
-      - image
-      - genre
-    Then onSubmit of the form, call onFormSubmit with the current form values.
-  */
+  const [newBook, setNewBook] = useState({
+    id: uuid(),
+    title: "",
+    author: "",
+    image: "",
+    genre: "Business"
+  })
+  
+  const handleChange = (e) => {
+    const key = e.target.name
+    const value = e.target.value
+    setNewBook({
+      ...newBook,
+      [key]: value
+    })
+  }
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault()
+    onFormSubmit(newBook)
+    setNewBook({
+      id: uuid(),
+      title: "",
+      author: "",
+      image: "",
+      genre: "Business"
+    })
+  }
+
   return (
-    <form className="NewItem">
+    <form 
+      onSubmit={handleFormSubmit}
+      className="NewItem"
+    >
       <div style={{ marginBottom: "8px" }}>
         <label>
           Title:
-          <input type="text" name="title" />
+          <input 
+            onChange={handleChange}
+            type="text" 
+            name="title"
+            value={newBook.title}
+          />
         </label>
         <label>
           Author:
-          <input type="text" name="author" />
+          <input 
+            onChange={handleChange}
+            type="text" 
+            name="author"
+            value={newBook.author}
+          />
         </label>
       </div>
 
       <div style={{ marginBottom: "8px" }}>
         <label>
           Image Link:
-          <input type="text" name="image" />
+          <input 
+            onChange={handleChange}
+            type="text" 
+            name="image" 
+            value={newBook.image}
+          />
         </label>
 
         <label>
           Genre:
-          <select name="genre">
+          <select 
+            onChange={handleChange}
+            name="genre"
+            value={newBook.genre}
+          >
             <option value="Business">Business</option>
             <option value="Fiction">Fiction</option>
             <option value="History">History</option>
